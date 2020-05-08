@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useCallback, useState} from 'react';
 import './App.css';
 
-function App() {
+const App: React.FC<{}> = () => {
+  /// imports data
+  // checks to see if there is an existing list
+  // allows you to choose a list
+
+  //saves list in local storage
+  //
+
+  const [state, setState] = useState(0);
+
+  useEffect(() => {
+    console.log('hi');
+  });
+
+  useCallback(() => {
+    console.log('callback');
+  }, [state]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <h1>
+      {state}
+      Russian Verb Master
+      <button onClick={() => setState(state + 1)}></button>
+    </h1>
   );
-}
+};
 
 export default App;
