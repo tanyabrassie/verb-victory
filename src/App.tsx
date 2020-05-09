@@ -1,30 +1,25 @@
-import React, {useEffect, useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
+import SelectionModal from './components/SelectionModal';
 
 const App: React.FC<{}> = () => {
-  /// imports data
-  // checks to see if there is an existing list
-  // allows you to choose a list
+  const myVerbList = 'myVerbList';
+  // check local state for list
+  // if no list is set pull in the data and show the modal
+  const [list, updateList] = useState(window.localStorage.getItem(myVerbList));
 
-  //saves list in local storage
-  //
+  // useEffect(() => {
+  //   const list = window.localStorage.getItem(myVerbList);
 
-  const [state, setState] = useState(0);
-
-  useEffect(() => {
-    console.log('hi');
-  });
-
-  useCallback(() => {
-    console.log('callback');
-  }, [state]);
+  // });
 
   return (
-    <h1>
-      {state}
-      Russian Verb Master
-      <button onClick={() => setState(state + 1)}></button>
-    </h1>
+    <>
+      <h1>
+        Russian Verb Master
+      </h1>
+      {!list && <SelectionModal updateList={updateList} />}
+    </>
   );
 };
 
