@@ -1,10 +1,11 @@
-export enum AspectualType {
-  IMPERFECTIVE,
-  PERFECTIVE,
+interface VerbBase {
+  infinitive: string;
+  definition: string;
+  conjugation: Conjugation;
 }
 
 interface Conjugation {
-  present?: Forms;
+  present?: Forms; //perfective verbs do not have a present tense
   past: Forms;
   future: Forms;
 }
@@ -20,11 +21,11 @@ interface Forms {
   они: string;
 }
 
-export interface Verb {
+
+export interface Verb extends VerbBase{
   id: number;
-  infinitive: string;
-  type: AspectualType;
-  definition: string;
-  aspectualPair: number;
-  conjugation: Conjugation;
+  perfectiveSibling: VerbBase;
 }
+
+
+
