@@ -2,8 +2,7 @@ import React from 'react';
 import Modal from 'react-overlays/Modal';
 import styled from 'styled-components';
 import SelectionForm from './SelectionForm';
-import data from '../data/data';
-import Test from './Test';
+import { MySelections } from '../data/types';
 
 const VerbModal = styled(Modal)`
   border: 1px solid red;
@@ -26,7 +25,7 @@ const Background = styled.div`
 const ModalBackground = () => <Background/>;
 
 interface Props {
-  updateList: any;
+  updateSelections: (s: MySelections) => void; //todo
 }
 
 const SelectionModal: React.FC<Props> = (props) => {
@@ -37,8 +36,7 @@ const SelectionModal: React.FC<Props> = (props) => {
     >
       <div>
         Verb Selection Modal
-        <Test/>
-        <SelectionForm/>
+        <SelectionForm updateSelections={props.updateSelections} />
       </div>
     </VerbModal>
   );

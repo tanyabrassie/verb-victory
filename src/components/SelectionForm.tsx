@@ -1,21 +1,48 @@
-import React from 'react';
-import verbData from '../data/data';
-import { AspectualType } from '../data/types';
+import * as React from 'react';
+import Data from '../data/data';
+import { useState } from 'react';
+import { MySelections } from '../data/types';
 
-const SelectionForm: React.FC<{}> = () => {
-  console.log(verbData);
+interface Props {
+  updateSelections: (s: MySelections) => void;
+}
 
-  const imperfectiveVerbs = verbData.filter((verb) => {
-    return verb.type = AspectualType.IMPERFECTIVE;
-  });
+const SelectionForm: React.FC<Props> = (props) => {
+  const [changeset, updateChangeset] = useState<string[]>([]);
 
-  return(
-    <>
-      <div>
-        hi
-      </div>
-      {imperfectiveVerbs.map(item => <div key={item.id}>{item.infinitive}</div>)}
-    </>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (changeset.includes(e.target.value)) {
+      updateChangeset(changeset.filter(item => item !== e.target.value));
+    } else {
+      updateChangeset([...changeset, e.target.value]);
+    }
+  };
+
+  const onSubmit = () => {
+    props.updateSelections(changeset);
+  };
+
+  return (
+    <form>
+      <h1>Select Your Verbs</h1>
+      {Object.keys(Data).map(key => {
+        return (
+          <div key={key}>
+            <label key={key}>
+              {Data[key as any].infinitive}, {Data[key as any].perfectiveSibling.infinitive}
+              <input 
+                type="checkbox"
+                value={key}
+                checked={changeset.includes(key)}
+                name={Data[key as any].infinitive}
+                onChange={(e) => handleChange(e)}
+              />
+            </label>
+          </div>
+        );
+      })}
+      <button type="submit" onClick={onSubmit}>Start Studying</button>
+    </form>
   );
 };
 

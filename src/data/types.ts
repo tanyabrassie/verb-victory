@@ -21,11 +21,12 @@ interface Forms {
   они: string;
 }
 
-
 export interface Verb extends VerbBase{
   id: number;
   perfectiveSibling: VerbBase;
 }
+
+export type MySelections = string[];
 
 
 

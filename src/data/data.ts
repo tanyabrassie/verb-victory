@@ -1,8 +1,12 @@
 import {Verb} from './types';
 
-const Data: Verb[] = [
-  {
-    id: 1,
+interface Dict<T> {
+  [index: number]: T;
+}
+
+const Data: Dict<Verb> = {
+  0: {
+    id: 0,
     infinitive: 'говорить',
     definition: 'To speak',
     conjugation: {
@@ -64,8 +68,8 @@ const Data: Verb[] = [
       }
     }
   },
-  {
-    id: 2,
+  1: {
+    id: 1,
     infinitive: 'видеть',
     definition: 'To see',
     conjugation: {
@@ -126,7 +130,7 @@ const Data: Verb[] = [
         }
       }
     }
-  }
-];
+  },
+};
 
 export default Data;
