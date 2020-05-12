@@ -29,19 +29,19 @@ const SelectionForm: React.FC<Props> = (props) => {
         return (
           <div key={key}>
             <label key={key}>
-              {Data[key as any].infinitive}, {Data[key as any].perfectiveSibling.infinitive}
+              {Data[key].infinitive}, {Data[key].perfectiveSibling.infinitive}
               <input 
                 type="checkbox"
                 value={key}
                 checked={changeset.includes(key)}
-                name={Data[key as any].infinitive}
+                name={Data[key].infinitive}
                 onChange={(e) => handleChange(e)}
               />
             </label>
           </div>
         );
       })}
-      <button type="submit" onClick={onSubmit}>Start Studying</button>
+      <button disabled={!changeset.length} type="submit" onClick={onSubmit}>Start Studying</button>
     </form>
   );
 };

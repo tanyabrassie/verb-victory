@@ -1,11 +1,11 @@
 import {Verb} from './types';
 
 interface Dict<T> {
-  [index: number]: T;
+  [index: string]: T;
 }
 
 const Data: Dict<Verb> = {
-  0: {
+  '0': {
     id: 0,
     infinitive: 'говорить',
     definition: 'To speak',
@@ -68,7 +68,7 @@ const Data: Dict<Verb> = {
       }
     }
   },
-  1: {
+  '1': {
     id: 1,
     infinitive: 'видеть',
     definition: 'To see',
@@ -106,6 +106,69 @@ const Data: Dict<Verb> = {
     },
     perfectiveSibling: {
       infinitive: 'увидеть',
+      definition: 'To see',
+      conjugation: {
+        past: {
+          я: 'вижу',
+          ты: 'вижу',
+          вы: 'вижу',
+          она: 'вижу',
+          он: 'вижу',
+          оно: 'вижу',
+          мы: 'вижу',
+          они: 'вижу',
+        },
+        future: {
+          я: 'вижу',
+          ты: 'вижу',
+          вы: 'вижу',
+          она: 'вижу',
+          он: 'вижу',
+          оно: 'вижу',
+          мы: 'вижу',
+          они: 'вижу',
+        }
+      }
+    }
+  },
+  '3': {
+    id: 3,
+    infinitive: 'покупать',
+    definition: 'To see',
+    conjugation: {
+      present: {
+        я: 'вижу',
+        ты: 'вижу',
+        вы: 'вижу',
+        она: 'вижу',
+        он: 'вижу',
+        оно: 'вижу',
+        мы: 'вижу',
+        они: 'вижу',
+      },
+      past: {
+        я: 'вижу',
+        ты: 'вижу',
+        вы: 'вижу',
+        она: 'вижу',
+        он: 'вижу',
+        оно: 'вижу',
+        мы: 'вижу',
+        они: 'вижу',
+      },
+      future: {
+        я: 'вижу',
+        ты: 'вижу',
+        вы: 'вижу',
+        она: 'вижу',
+        он: 'вижу',
+        оно: 'вижу',
+        мы: 'вижу',
+        они: 'вижу',
+      }
+    },
+    perfectiveSibling: {
+      infinitive: 'купить',
       definition: 'To see',
       conjugation: {
         past: {

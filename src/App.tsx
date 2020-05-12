@@ -3,7 +3,7 @@ import './App.css';
 import SelectionModal from './components/SelectionModal';
 import Data from './data/data';
 import { MySelections } from './data/types';
-import TrainingGround from './components/TrainingGround';
+import TrainingGround from './components/training/TrainingGround';
 
 // load an array of selections from the local storage
 // if there are none load the modal.
