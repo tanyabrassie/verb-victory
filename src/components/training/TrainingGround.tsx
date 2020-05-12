@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { MySelections } from '../data/types';
-import verbData from '../data/data';
+import { MySelections } from '../../data/types';
+import verbData from '../../data/data';
 import { useState } from 'react';
 
 interface Props {
@@ -17,13 +17,13 @@ const TrainingGround: React.FC<Props> = (props) => {
         {props.selections.map(s => {
           return(
             <button onClick={() => setActiveVerb(s)} key={s}>
-              {verbData[s as any].infinitive}, {verbData[s as any].perfectiveSibling.infinitive}
+              {verbData[s].infinitive}, {verbData[s].perfectiveSibling.infinitive}
             </button>
           );
         })}
       </div>
       
-      {activeVerb && verbData[activeVerb as any].infinitive}
+      {activeVerb && verbData[activeVerb].infinitive}
     </div>
   );
 };
