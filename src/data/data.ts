@@ -131,8 +131,8 @@ const Data: Dict<Verb> = {
       }
     }
   },
-  '3': {
-    id: 3,
+  '2': {
+    id: 2,
     infinitive: 'покупать',
     definition: 'To see',
     conjugation: {

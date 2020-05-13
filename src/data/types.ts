@@ -1,16 +1,21 @@
-interface VerbBase {
+interface VerbBase<C> {
   infinitive: string;
   definition: string;
-  conjugation: Conjugation;
+  conjugation: C;
 }
 
-interface Conjugation {
-  present?: Forms; //perfective verbs do not have a present tense
-  past: Forms;
-  future: Forms;
+export interface Tenses {
+  present: Persons; 
+  past: Persons;
+  future: Persons;
 }
 
-interface Forms {
+export interface PerfectiveTenses {
+  past: Persons;
+  future: Persons;
+}
+
+export interface Persons {
   я: string;
   ты: string;
   вы: string;
@@ -21,12 +26,12 @@ interface Forms {
   они: string;
 }
 
-export interface Verb extends VerbBase{
+export interface Verb extends VerbBase<Tenses>{
   id: number;
-  perfectiveSibling: VerbBase;
+  perfectiveSibling: VerbBase<PerfectiveTenses>;
 }
 
 export type MySelections = string[];
 
-
+export const PERSONS = ['я', 'ты', 'вы', 'она', 'он', 'оно', 'мы', 'они'];
 
