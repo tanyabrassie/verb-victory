@@ -33,5 +33,12 @@ export interface Verb extends VerbBase<Tenses>{
 
 export type MySelections = string[];
 
-export const PERSONS = ['я', 'ты', 'вы', 'она', 'он', 'оно', 'мы', 'они'];
+export enum Tense {
+  PAST,
+  PRESENT,
+  FUTURE
+}
+
+type PersonKeys = 'я' | 'ты' | 'вы' | 'она' | 'он' | 'оно' | 'мы' | 'они';
+export const PERSONS: PersonKeys[] = ['я', 'ты', 'вы', 'она', 'он', 'оно', 'мы', 'они'];
 

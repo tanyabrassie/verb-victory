@@ -15,15 +15,18 @@ interface Props {
 
 const PlainInput: React.FC<Props> = (props) => {
   return (
-    <input 
-      type={props.type}
-      id={props.id}
-      name={props.name}
-      value={props.value}
-      onChange={props.onChange}
-      placeholder={props.placeholder}
-      className={props.className}
-    />
+    <div>
+      <input 
+        type={props.type}
+        id={props.id}
+        name={props.name}
+        value={props.value}
+        onChange={props.onChange}
+        placeholder={props.placeholder}
+        className={props.className}
+      />
+      {props.error ? <span>🙁</span>: <span>😀</span>}
+    </div>
   );
 };
 

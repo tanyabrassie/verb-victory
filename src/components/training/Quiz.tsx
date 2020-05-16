@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Verb, Persons, PERSONS} from '../../data/types';
+import {Verb, Persons, PERSONS, Tense} from '../../data/types';
 import {Flex, Box} from 'rebass';
 import {useReducer} from 'react';
 import Input from '../Input';
@@ -20,22 +20,23 @@ interface PerChangeset {
 }
 
 
+//reduce function which takes state and action object
 const reduce = (state: any, action: any) => {
-  switch (action.type) {
-  case 'present':
+  switch (action.tense) {
+  case Tense.PRESENT:
     return {
       ...state,
-      present: {...state.present, [action.name]: action.value},
+      present: {...state.present, [action.person]: action.value},
     };
-  case 'past':
+  case Tense.PAST:
     return {
       ...state,
-      past: {...state.past, [action.name]: action.value},
+      past: {...state.past, [action.person]: action.value},
     };
-  case 'future':
+  case Tense.FUTURE:
     return {
       ...state,
-      future: {...state.future, [action.name]: action.value},
+      future: {...state.future, [action.person]: action.value},
     };
   } 
 };
@@ -57,7 +58,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
     они: '',
   };
 
-  const changeset = {
+  const changeset: ImpChangeset = {
     past: {
       ...persons,
     },
@@ -74,18 +75,22 @@ const Quiz: React.FC<Props> = ({verb}) => {
 
 
   // initial state = changes
-  const handleImpChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
-
-    console.log(e.currentTarget.value);
+  const handleImpChange = (e:  React.ChangeEvent<HTMLInputElement>, tense: Tense) => {
     dispatch({
-      type: e.target.id,
+      tense: tense,
+      person: e.target.name,
       value: e.target.value,
-      name: e.target.name,
     });
   };
 
   console.log(state);
+
+  const hasError = (input: any, correct: any) => {
+    return (!input.length || input === correct) ? false : true;
+  };
+
+  //  on submit, pass changeset to verb
+  // verb  will check 
 
   return(
     <div>
@@ -96,18 +101,18 @@ const Quiz: React.FC<Props> = ({verb}) => {
           <div>Present</div>
           {PERSONS.map(key => {
             return (
-              <>
+              <Flex key={imperfectiveForms.present[key]}>
                 <div>{key}</div>
-                <div>{imperfectiveForms.present[key as keyof Persons]}</div>
+                {/* <div>{imperfectiveForms.present[key]}</div> */}
                 <Input
-                  id={'present'}
                   type="text"
+                  id={imperfectiveForms.present[key]}
                   name={key}
-                  value={state.present[key as keyof Persons]}
-                  onChange={(e) => handleImpChange(e)}
-                  error={false}
+                  value={state.present[key]}
+                  onChange={(e) => handleImpChange(e, Tense.PRESENT)}
+                  error={hasError(state.present[key], imperfectiveForms.present[key])}
                 />
-              </>
+              </Flex>
             );
           })}
         </Box>
@@ -118,13 +123,12 @@ const Quiz: React.FC<Props> = ({verb}) => {
             return (
               <>
                 <div>{key}</div>
-                <div>{imperfectiveForms.past[key as keyof Persons]}</div>
+                <div>{imperfectiveForms.past[key]}</div>
                 <Input 
-                  id={'past'}
                   type="text"
                   name={key}
-                  value={state.past[key as keyof Persons]}
-                  onChange={(e) => handleImpChange(e)}
+                  value={state.past[key]}
+                  onChange={(e) => handleImpChange(e, Tense.PAST)}
                   error={false}
                 />
               </>
@@ -138,13 +142,12 @@ const Quiz: React.FC<Props> = ({verb}) => {
             return (
               <>
                 <div>{key}</div>
-                <div>{imperfectiveForms.future[key as keyof Persons]}</div>
+                <div>{imperfectiveForms.future[key]}</div>
                 <Input
-                  id={'future'}
                   type="text"
                   name={key}
-                  value={state.future[key as keyof Persons]}
-                  onChange={(e) => handleImpChange(e)}
+                  value={state.future[key]}
+                  onChange={(e) => handleImpChange(e, Tense.FUTURE)}
                   error={false}
                 />
               </>
@@ -161,7 +164,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
             return (
               <>
                 <div>{key}</div>
-                <div>{perfectiveForms.future[key as keyof Persons]}</div>
+                <div>{perfectiveForms.future[key]}</div>
               </>
             );
           })}
@@ -173,7 +176,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
             return (
               <>
                 <div>{key}</div>
-                <div>{perfectiveForms.past[key as keyof Persons]}</div>
+                <div>{perfectiveForms.past[key]}</div>
               </>
             );
           })}
