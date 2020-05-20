@@ -6,12 +6,12 @@ interface VerbBase<C> {
 
 export interface Tenses {
   present: Persons; 
-  past: PastImpPersons;
+  past: PastPersons;
   future: Persons;
 }
 
 export interface PerfectiveTenses {
-  past: Persons;
+  past: PastPersons;
   future: Persons;
 }
 
@@ -26,7 +26,7 @@ export interface Persons {
   они: string;
 }
 
-export interface PastImpPersons {
+export interface PastPersons {
   она: string;
   он: string;
   оно: string;

@@ -20,7 +20,6 @@ const SelectionForm: React.FC<Props> = (props) => {
 
   const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e);
     props.updateSelections(changeset);
   };
 

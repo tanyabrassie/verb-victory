@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Verb, Persons, PERSONS, Tense, PastImpPersons} from '../../data/types';
+import {Verb, Persons, Tense, PastPersons} from '../../data/types';
 import {Flex, Box} from 'rebass';
 import {useReducer} from 'react';
 import Input from '../Input';
@@ -117,7 +117,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
             return (
               <>
                 <div>{key}</div>
-                <div>{imperfectiveForms.past[key as keyof PastImpPersons]}</div>
+                <div>{imperfectiveForms.past[key as keyof PastPersons]}</div>
                 <Input 
                   type="text"
                   name={key}
