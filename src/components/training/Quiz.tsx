@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Verb, Persons, PERSONS, Tense} from '../../data/types';
+import {Verb, Persons, PERSONS, Tense, PastImpPersons} from '../../data/types';
 import {Flex, Box} from 'rebass';
 import {useReducer} from 'react';
 import Input from '../Input';
@@ -70,9 +70,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
     },
   };
 
-
   const [state, dispatch] = useReducer(reduce, changeset);
-
 
   // initial state = changes
   const handleImpChange = (e:  React.ChangeEvent<HTMLInputElement>, tense: Tense) => {
@@ -83,14 +81,9 @@ const Quiz: React.FC<Props> = ({verb}) => {
     });
   };
 
-  console.log(state);
-
   const hasError = (input: any, correct: any) => {
     return (!input.length || input === correct) ? false : true;
   };
-
-  //  on submit, pass changeset to verb
-  // verb  will check 
 
   return(
     <div>
@@ -99,11 +92,12 @@ const Quiz: React.FC<Props> = ({verb}) => {
       <Flex>
         <Box p={3}>
           <div>Present</div>
-          {PERSONS.map(key => {
-            return (
+
+          
+          {(Object.keys(imperfectiveForms.present) as Array<keyof typeof imperfectiveForms.present>).map(key => {
+            return(
               <Flex key={imperfectiveForms.present[key]}>
                 <div>{key}</div>
-                {/* <div>{imperfectiveForms.present[key]}</div> */}
                 <Input
                   type="text"
                   id={imperfectiveForms.present[key]}
@@ -119,11 +113,11 @@ const Quiz: React.FC<Props> = ({verb}) => {
 
         <Box p={3}>
           <div>Past</div>
-          {PERSONS.map(key => {
+          {(Object.keys(imperfectiveForms.past) as Array<keyof typeof imperfectiveForms.past>).map(key => {
             return (
               <>
                 <div>{key}</div>
-                <div>{imperfectiveForms.past[key]}</div>
+                <div>{imperfectiveForms.past[key as keyof PastImpPersons]}</div>
                 <Input 
                   type="text"
                   name={key}
@@ -138,7 +132,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
 
         <Box p={3}>
           <div>Future</div>
-          {PERSONS.map(key => {
+          {(Object.keys(imperfectiveForms.future) as Array<keyof typeof imperfectiveForms.future>).map(key => {
             return (
               <>
                 <div>{key}</div>
@@ -160,7 +154,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
         {verb.perfectiveSibling.infinitive} - {verb.definition}
         <Box p={3}>
           <div>Future</div>
-          {PERSONS.map(key => {
+          {(Object.keys(perfectiveForms.future) as Array<keyof typeof perfectiveForms.future>).map(key => {
             return (
               <>
                 <div>{key}</div>
@@ -172,7 +166,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
 
         <Box p={3}>
           <div>Past</div>
-          {PERSONS.map(key => {
+          {(Object.keys(perfectiveForms.past) as Array<keyof typeof perfectiveForms.past>).map(key => {
             return (
               <>
                 <div>{key}</div>

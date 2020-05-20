@@ -1,37 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import SelectionModal from './components/SelectionModal';
-import Data from './data/data';
 import { MySelections } from './data/types';
 import TrainingGround from './components/training/TrainingGround';
-
-// load an array of selections from the local storage
-// if there are none load the modal.
-// the modal will create a form based on all the data
-
-// when you submit the form it will update local storage with your data and then
-// will update the state
-
-// since you have selections training ground will look up those selections
-//and create a map on the side
-
-// when you click on one verb, it will update the training ground with that verb id
-// another form will be created based on that verb data.
+import useLocalStorage from './lib/useLocalStorage';
 
 const App: React.FC<{}> = () => {
-  
-  const [selections, updateSelections] = useState<MySelections>([]);
+ 
+  const [myVerbs, updateMyVerbs] = useLocalStorage<MySelections>('myVerbs', []);
+  const [showModal, toggleSelectionModal] = useState<boolean>(!myVerbs.length);
 
-  const updateAndStoreSelections = (selections: MySelections) => {
-    // add them to local storage
-    // set the stage
-    updateSelections(selections);
+  const updateSelections = (changeset: MySelections) => {
+    updateMyVerbs(changeset);
+    toggleSelectionModal(!showModal);
   };
-
-  useEffect(() => {
-    console.log(selections);
-    console.log(Data);
-  }, []);
   
   return (
     <>
@@ -39,9 +21,9 @@ const App: React.FC<{}> = () => {
         Russian Verb Victory - Победа будет твоя!
       </h1>
       
-      {!selections.length && <SelectionModal updateSelections={updateSelections} />}
+      {showModal && <SelectionModal updateSelections={updateSelections} />}
       
-      {!!selections.length && <TrainingGround selections={selections}/>}
+      {!!myVerbs.length && <TrainingGround toggleSelectionModal={toggleSelectionModal} selections={myVerbs}/>}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Data from '../data/data';
-import { useState } from 'react';
-import { MySelections } from '../data/types';
+import {useState} from 'react';
+import {MySelections} from '../data/types';
 
 interface Props {
   updateSelections: (s: MySelections) => void;
@@ -18,12 +18,14 @@ const SelectionForm: React.FC<Props> = (props) => {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(e);
     props.updateSelections(changeset);
   };
 
   return (
-    <form>
+    <form onSubmit={onSubmit} >
       <h1>Select Your Verbs</h1>
       {Object.keys(Data).map(key => {
         return (
@@ -41,7 +43,7 @@ const SelectionForm: React.FC<Props> = (props) => {
           </div>
         );
       })}
-      <button disabled={!changeset.length} type="submit" onClick={onSubmit}>Start Studying</button>
+      <button disabled={!changeset.length} type="submit">Start Studying</button>
     </form>
   );
 };

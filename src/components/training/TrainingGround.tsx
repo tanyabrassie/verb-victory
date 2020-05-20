@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 interface Props {
   selections: MySelections;
+  toggleSelectionModal: (value: boolean) => void;
 }
 
 const Sidebar = styled.aside`
@@ -24,13 +25,12 @@ const SelectorButton = styled.button`
 
 const TrainingGround: React.FC<Props> = (props) => {
   const [activeVerb, setActiveVerb] = useState<string>();
-  console.log(typeof activeVerb);
-  console.log(verbData);
 
   return(
     <Container>
       {/* //sidebar */}
       <Sidebar>
+        <button onClick={() => props.toggleSelectionModal(true)}>edit list</button>
         {props.selections.map(s => {
           return(
             <SelectorButton onClick={() => setActiveVerb(s)} key={s}>
@@ -39,9 +39,6 @@ const TrainingGround: React.FC<Props> = (props) => {
           );
         })}
       </Sidebar>
-
-      {activeVerb && console.log(verbData[activeVerb])}
-
        
       {activeVerb && <Quiz verb={verbData[activeVerb]}/>}
     </Container>
