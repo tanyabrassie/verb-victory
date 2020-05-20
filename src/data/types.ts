@@ -6,7 +6,7 @@ interface VerbBase<C> {
 
 export interface Tenses {
   present: Persons; 
-  past: Persons;
+  past: PastImpPersons;
   future: Persons;
 }
 
@@ -26,6 +26,13 @@ export interface Persons {
   они: string;
 }
 
+export interface PastImpPersons {
+  она: string;
+  он: string;
+  оно: string;
+  они: string;
+}
+
 export interface Verb extends VerbBase<Tenses>{
   id: number;
   perfectiveSibling: VerbBase<PerfectiveTenses>;
@@ -36,7 +43,7 @@ export type MySelections = string[];
 export enum Tense {
   PAST,
   PRESENT,
-  FUTURE
+  FUTURE,
 }
 
 type PersonKeys = 'я' | 'ты' | 'вы' | 'она' | 'он' | 'оно' | 'мы' | 'они';
