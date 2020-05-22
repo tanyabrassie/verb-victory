@@ -8,11 +8,16 @@ const VerbModal = styled(Modal)`
   border: 1px solid red;
   height: 500px;
   width: 500px;
-  margin: auto;
   border: 2px solid ${props => props.theme.colors.black};
   background-color: ${props => props.theme.colors.lightRed};
   padding: ${props => props.theme.space[3]}px;
   z-index: 1;
+  position: fixed;
+  top: 160px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  box-shadow: 10px 10px 1px ${props => props.theme.colors.black};
 `;
 
 const Background = styled.div`

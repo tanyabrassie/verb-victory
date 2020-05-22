@@ -1,11 +1,10 @@
 import * as React from 'react';
-import {Verb, Persons, Tense, PastPersons} from '../../data/types';
+import {Verb, Persons, Tense} from '../../data/types';
 import {Flex, Box} from 'rebass';
 import {useReducer} from 'react';
 import Input from '../Input';
 import VerbHeader from './VerbHeader';
 import styled from 'styled-components';
-import Header from '../Header';
 
 interface Props {
   verb: Verb;
@@ -51,10 +50,7 @@ const QuizContainer = styled.main`
   align-items: center;
 `;
 
-
 const Quiz: React.FC<Props> = ({verb}) => {
-  console.warn(verb);
-
   const imperfectiveForms = verb.conjugation;
   const perfectiveForms = verb.perfectiveSibling.conjugation;
 
@@ -111,8 +107,8 @@ const Quiz: React.FC<Props> = ({verb}) => {
           
           {(Object.keys(imperfectiveForms.present) as Array<keyof typeof imperfectiveForms.present>).map(key => {
             return(
-              <Flex key={key + imperfectiveForms.present[key]}>
-                <div>{key}</div>
+              <>
+                <div key={key + imperfectiveForms.present[key]}>{key}</div>
                 <Input
                   type="text"
                   name={key}
@@ -120,7 +116,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
                   onChange={(e) => handleImpChange(e, Tense.PRESENT)}
                   error={hasError(state.present[key], imperfectiveForms.present[key])}
                 />
-              </Flex>
+              </>
             );
           })}
         </Box>
@@ -131,7 +127,6 @@ const Quiz: React.FC<Props> = ({verb}) => {
             return (
               <>
                 <div>{key}</div>
-                <div>{imperfectiveForms.past[key as keyof PastPersons]}</div>
                 <Input 
                   type="text"
                   name={key}
@@ -150,7 +145,6 @@ const Quiz: React.FC<Props> = ({verb}) => {
             return (
               <>
                 <div>{key}</div>
-                <div>{imperfectiveForms.future[key]}</div>
                 <Input
                   type="text"
                   name={key}
