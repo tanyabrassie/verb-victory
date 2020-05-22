@@ -1,30 +1,28 @@
 import React, {useState} from 'react';
-import './App.css';
 import SelectionModal from './components/SelectionModal';
-import { MySelections } from './data/types';
+import { SelectedVerbs } from './data/types';
 import TrainingGround from './components/training/TrainingGround';
+import Header from './components/Header';
 import useLocalStorage from './lib/useLocalStorage';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './theme';
 
-const App: React.FC<{}> = () => {
+const App: React.FC = () => {
  
-  const [myVerbs, updateMyVerbs] = useLocalStorage<MySelections>('myVerbs', []);
-  const [showModal, toggleSelectionModal] = useState<boolean>(!myVerbs.length);
+  const [selectedVerbs, updateSelectedVerbs] = useLocalStorage<SelectedVerbs>('myVerbs', []);
+  const [showModal, toggleSelectionModal] = useState<boolean>(!selectedVerbs.length);
 
-  const updateSelections = (changeset: MySelections) => {
-    updateMyVerbs(changeset);
+  const updateSelections = (changeset: SelectedVerbs) => {
+    updateSelectedVerbs(changeset);
     toggleSelectionModal(!showModal);
   };
   
   return (
-    <>
-      <h1>
-        Russian Verb Victory - Победа будет твоя!
-      </h1>
-      
-      {showModal && <SelectionModal updateSelections={updateSelections} />}
-      
-      {!!myVerbs.length && <TrainingGround toggleSelectionModal={toggleSelectionModal} selections={myVerbs}/>}
-    </>
+    <ThemeProvider theme={theme}>
+      <Header/>
+      {showModal && <SelectionModal selectedVerbs={selectedVerbs} updateSelections={updateSelections} />}
+      {!!selectedVerbs.length && <TrainingGround toggleSelectionModal={toggleSelectionModal} selections={selectedVerbs}/>}
+    </ThemeProvider>
   );
 };
 

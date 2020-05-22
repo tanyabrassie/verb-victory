@@ -38,7 +38,7 @@ export interface Verb extends VerbBase<Tenses>{
   perfectiveSibling: VerbBase<PerfectiveTenses>;
 }
 
-export type MySelections = string[];
+export type SelectedVerbs = string[];
 
 export enum Tense {
   PAST,

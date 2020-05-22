@@ -3,6 +3,9 @@ import {Verb, Persons, Tense, PastPersons} from '../../data/types';
 import {Flex, Box} from 'rebass';
 import {useReducer} from 'react';
 import Input from '../Input';
+import VerbHeader from './VerbHeader';
+import styled from 'styled-components';
+import Header from '../Header';
 
 interface Props {
   verb: Verb;
@@ -41,8 +44,16 @@ const reduce = (state: any, action: any) => {
   } 
 };
 
+const QuizContainer = styled.main`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 
 const Quiz: React.FC<Props> = ({verb}) => {
+  console.warn(verb);
 
   const imperfectiveForms = verb.conjugation;
   const perfectiveForms = verb.perfectiveSibling.conjugation;
@@ -86,9 +97,13 @@ const Quiz: React.FC<Props> = ({verb}) => {
   };
 
   return(
-    <div>
-      {verb.infinitive} - {verb.definition}
-
+    <QuizContainer>
+      <VerbHeader
+        aspect={'imperfective'}
+        definition={verb.definition}
+        infinitive={verb.infinitive}
+      >
+      </VerbHeader>
       <Flex>
         <Box p={3}>
           <div>Present</div>
@@ -96,11 +111,10 @@ const Quiz: React.FC<Props> = ({verb}) => {
           
           {(Object.keys(imperfectiveForms.present) as Array<keyof typeof imperfectiveForms.present>).map(key => {
             return(
-              <Flex key={imperfectiveForms.present[key]}>
+              <Flex key={key + imperfectiveForms.present[key]}>
                 <div>{key}</div>
                 <Input
                   type="text"
-                  id={imperfectiveForms.present[key]}
                   name={key}
                   value={state.present[key]}
                   onChange={(e) => handleImpChange(e, Tense.PRESENT)}
@@ -176,7 +190,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
           })}
         </Box>
       </Flex>
-    </div>
+    </QuizContainer>
   );
 };
 

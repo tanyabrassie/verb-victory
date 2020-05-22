@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { MySelections } from '../../data/types';
+import { SelectedVerbs } from '../../data/types';
 import verbData from '../../data/data';
 import { useState } from 'react';
 import Quiz from './Quiz';
 import styled from 'styled-components';
 
 interface Props {
-  selections: MySelections;
+  selections: SelectedVerbs;
   toggleSelectionModal: (value: boolean) => void;
 }
 

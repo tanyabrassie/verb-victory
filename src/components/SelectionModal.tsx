@@ -2,17 +2,21 @@ import React from 'react';
 import Modal from 'react-overlays/Modal';
 import styled from 'styled-components';
 import SelectionForm from './SelectionForm';
-import { MySelections } from '../data/types';
+import { SelectedVerbs } from '../data/types';
 
 const VerbModal = styled(Modal)`
   border: 1px solid red;
   height: 500px;
   width: 500px;
-  background-color: #fff;
+  margin: auto;
+  border: 2px solid ${props => props.theme.colors.black};
+  background-color: ${props => props.theme.colors.lightRed};
+  padding: ${props => props.theme.space[3]}px;
+  z-index: 1;
 `;
 
 const Background = styled.div`
-  background-color: #333;
+  background-color: ${props => props.theme.colors.lightRed};
   opacity: .6;
   position: fixed;
   top: 0;
@@ -25,7 +29,8 @@ const Background = styled.div`
 const ModalBackground = () => <Background/>;
 
 interface Props {
-  updateSelections: (s: MySelections) => void; //todo
+  updateSelections: (s: SelectedVerbs) => void; //todo
+  selectedVerbs: SelectedVerbs;
 }
 
 const SelectionModal: React.FC<Props> = (props) => {
@@ -34,10 +39,10 @@ const SelectionModal: React.FC<Props> = (props) => {
       show
       renderBackdrop={ModalBackground}
     >
-      <div>
-        Verb Selection Modal
-        <SelectionForm updateSelections={props.updateSelections} />
-      </div>
+      <SelectionForm 
+        updateSelections={props.updateSelections}
+        selectedVerbs={props.selectedVerbs}
+      />
     </VerbModal>
   );
 };
