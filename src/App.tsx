@@ -15,6 +15,7 @@ const Main = styled.main`
   width: 60%;
   flex-direction: column;
   margin: ${props => props.theme.space[4]}px;
+  margin-left: ${props => props.theme.space[12]}px;
 `;
 
 const App: React.FC = () => {

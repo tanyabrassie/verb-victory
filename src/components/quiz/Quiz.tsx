@@ -50,6 +50,37 @@ const QuizContainer = styled.main`
   padding-top: ${props => props.theme.space[10]}px;
 `;
 
+const InputContainer = styled(Flex)`
+  flex-direction: column;
+  padding-top: ${props => props.theme.space[3]}px;
+  padding-bottom: ${props => props.theme.space[3]}px;
+  padding-left: 0;
+  width: 80%;
+`;
+
+const Label = styled.label`
+  margin-bottom: ${props => props.theme.space[1]}px;
+`;
+
+const FormContainer = styled(Flex)`
+  width: 100%;
+`;
+
+const FormGroup = styled(Box)`
+  padding: 15px 15px 0 0;
+`;
+
+const TenseHeader = styled(Flex)`
+  width: 100%;
+  border-bottom: 1px solid ${props => props.theme.colors.black};
+  padding-top: ${props => props.theme.space[10]}px;
+  padding-bottom: ${props => props.theme.space[2]}px;
+`;
+
+const TenseLabel = styled.h2`
+  width: calc(100% / 3);
+`;
+
 const Quiz: React.FC<Props> = ({verb}) => {
   const imperfectiveForms = verb.conjugation;
   const perfectiveForms = verb.perfectiveSibling.conjugation;
@@ -100,15 +131,17 @@ const Quiz: React.FC<Props> = ({verb}) => {
         infinitive={verb.infinitive}
       >
       </VerbHeader>
-      <Flex>
-        <Box p={3}>
-          <div>Present</div>
-
-          
+      <TenseHeader>
+        <TenseLabel>Present</TenseLabel>
+        <TenseLabel>Past</TenseLabel>
+        <TenseLabel>Future</TenseLabel>
+      </TenseHeader>
+      <FormContainer>
+        <FormGroup width={1/3}>
           {(Object.keys(imperfectiveForms.present) as Array<keyof typeof imperfectiveForms.present>).map(key => {
             return(
-              <>
-                <div key={key + imperfectiveForms.present[key]}>{key}</div>
+              <InputContainer key={key + imperfectiveForms.present[key]}>
+                <Label>{key}</Label>
                 <Input
                   type="text"
                   name={key}
@@ -116,17 +149,16 @@ const Quiz: React.FC<Props> = ({verb}) => {
                   onChange={(e) => handleImpChange(e, Tense.PRESENT)}
                   error={hasError(state.present[key], imperfectiveForms.present[key])}
                 />
-              </>
+              </InputContainer>
             );
           })}
-        </Box>
+        </FormGroup>
 
-        <Box p={3}>
-          <div>Past</div>
+        <FormGroup width={1/3}>
           {(Object.keys(imperfectiveForms.past) as Array<keyof typeof imperfectiveForms.past>).map(key => {
             return (
-              <>
-                <div>{key}</div>
+              <InputContainer key={key + imperfectiveForms.past[key]}>
+                <Label>{key}</Label>
                 <Input 
                   type="text"
                   name={key}
@@ -134,17 +166,16 @@ const Quiz: React.FC<Props> = ({verb}) => {
                   onChange={(e) => handleImpChange(e, Tense.PAST)}
                   error={false}
                 />
-              </>
+              </InputContainer>
             );
           })}
-        </Box>
+        </FormGroup>
 
-        <Box p={3}>
-          <div>Future</div>
+        <FormGroup width={1/3}>
           {(Object.keys(imperfectiveForms.future) as Array<keyof typeof imperfectiveForms.future>).map(key => {
             return (
-              <>
-                <div>{key}</div>
+              <InputContainer key={key + imperfectiveForms.future[key]}>
+                <Label>{key}</Label>
                 <Input
                   type="text"
                   name={key}
@@ -152,11 +183,11 @@ const Quiz: React.FC<Props> = ({verb}) => {
                   onChange={(e) => handleImpChange(e, Tense.FUTURE)}
                   error={false}
                 />
-              </>
+              </InputContainer>
             );
           })}
-        </Box>
-      </Flex>
+        </FormGroup>
+      </FormContainer>
 
       <Flex>
         {verb.perfectiveSibling.infinitive} - {verb.definition}

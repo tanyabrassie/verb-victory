@@ -13,6 +13,8 @@ interface Props {
 
 const Container = styled.aside`
   width: 180px;
+  position: sticky;
+  top: 0;
   margin: ${props => props.theme.space[4]}px;
   padding: ${props => props.theme.space[2]}px ${props => props.theme.space[4]}px;
   height: 600px;
@@ -43,12 +45,16 @@ const Title = styled.strong`
 `;
 
 const CircleButton = styled.button`
-  background-color: ${props => props.theme.colors.black};
+  background-color: transparent;
+  cursor: pointer;
   border: none;
   outline: none;
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
+  font-size: 28px;
+  padding-bottom: ${props => props.theme.space[1]}px;
+
+  &:hover {
+    color: ${props => props.theme.colors.red};
+  }
 `;
 
 const Sidebar: React.FC<Props> = ({selections, toggleSelectionModal, setActiveVerb, verbData, activeVerb}) => {
@@ -56,7 +62,7 @@ const Sidebar: React.FC<Props> = ({selections, toggleSelectionModal, setActiveVe
     <Container>
       <Flex alignItems="center" justifyContent="space-between">
         <Title>Select Verb</Title>
-        <CircleButton onClick={() => toggleSelectionModal(true)}>edit list</CircleButton>
+        <CircleButton onClick={() => toggleSelectionModal(true)}>✍︎</CircleButton>
       </Flex>
       {selections.map(s => {
         return(
