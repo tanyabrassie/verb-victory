@@ -3,11 +3,19 @@ import SelectionModal from './components/SelectionModal';
 import { SelectedVerbs } from './data/types';
 import Header from './components/Header';
 import useLocalStorage from './lib/useLocalStorage';
-import { ThemeProvider } from 'styled-components';
-import { theme } from './theme';
-import Sidebar from './components/training/Sidebar';
-import Quiz from './components/training/Quiz';
+import styled, {ThemeProvider} from 'styled-components';
+import {theme} from './theme';
+import Sidebar from './components/Sidebar';
+import Quiz from './components/quiz/Quiz';
 import verbData from './data/data';
+import {Flex} from 'rebass';
+
+const Main = styled.main`
+  display: flex;
+  width: 60%;
+  flex-direction: column;
+  margin: ${props => props.theme.space[4]}px;
+`;
 
 const App: React.FC = () => {
  
@@ -22,24 +30,22 @@ const App: React.FC = () => {
   
   return (
     <ThemeProvider theme={theme}>
-      <Header/>
       {showModal && <SelectionModal selectedVerbs={selectedVerbs} updateSelections={updateSelections} />}
-      
-      {!!selectedVerbs.length &&
-        <>
+      <Flex p={'20px'}>
+        {!!selectedVerbs.length &&
           <Sidebar
             setActiveVerb={setActiveVerb} 
             toggleSelectionModal={toggleSelectionModal}
             selections={selectedVerbs}
-            verbData={verbData}        
+            verbData={verbData}    
+            activeVerb={activeVerb}    
           />
-        </>
-      }
-
-      {!!selectedVerbs.length && activeVerb && 
-        <Quiz verb={verbData[activeVerb]}/>
-      }
-
+        }
+        <Main>
+          <Header/>
+          {!!selectedVerbs.length && activeVerb &&  <Quiz verb={verbData[activeVerb]}/> }
+        </Main>
+      </Flex>
     </ThemeProvider>
   );
 };

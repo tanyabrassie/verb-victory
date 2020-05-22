@@ -6,7 +6,6 @@ import logo from '../images/verb-victory-logo.svg';
 const Container = styled(Flex)`
   width: 100%;
   justify-content: center;
-  padding: ${(props) => props.theme.space[5]}px;
 `;
 
 const Logo = styled(Image)`

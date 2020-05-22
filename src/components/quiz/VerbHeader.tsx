@@ -20,15 +20,16 @@ const Aspect = styled.span`
 `;
 
 const Infinitive = styled.h1`
-  font-family: 'Anonymous Pro', monospace;
   font-weight: 100;
   font-size: 50px;
+  font-family: ${props => props.theme.fonts.courierNew};
 `;  
 
 const Definition  = styled.p`
-  font-family: ${(props) => props.theme.fonts.sourceSans};
   font-size: 15px;
   text-transform: lowercase;
+  letter-spacing: 1px;
+  padding-top: ${props => props.theme.space[1]}px;
 `;
 
 const VerbHeader: React.FC<Props> = (props) => {

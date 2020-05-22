@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Verb, Persons, Tense} from '../../data/types';
 import {Flex, Box} from 'rebass';
 import {useReducer} from 'react';
-import Input from '../Input';
+import Input from '../ui/Input';
 import VerbHeader from './VerbHeader';
 import styled from 'styled-components';
 
@@ -20,7 +20,6 @@ interface PerChangeset {
   past: Persons;
   future: Persons;
 }
-
 
 //reduce function which takes state and action object
 const reduce = (state: any, action: any) => {
@@ -48,6 +47,7 @@ const QuizContainer = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: ${props => props.theme.space[10]}px;
 `;
 
 const Quiz: React.FC<Props> = ({verb}) => {
