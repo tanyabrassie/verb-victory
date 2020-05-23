@@ -9,7 +9,7 @@ const Container = styled(Flex)`
 `;
 
 const Logo = styled(Image)`
-  width: 100px;
+  width: 120px;
 `;
 
 function Header() {

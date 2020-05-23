@@ -18,7 +18,7 @@ const Container = styled.aside`
   margin: ${props => props.theme.space[4]}px;
   padding: ${props => props.theme.space[2]}px ${props => props.theme.space[4]}px;
   height: 600px;
-  border-right: 1px solid ${props => props.theme.colors.mediumRed};
+  border-right: 12px solid ${props => props.theme.colors.brightRed};
 `;
 
 const SelectorButton = styled.button<{isActive: boolean}>`
@@ -28,12 +28,16 @@ const SelectorButton = styled.button<{isActive: boolean}>`
   cursor: pointer;
   font-size: 13px;
   margin: ${props => props.theme.space[2]}px 0;
-  background-color: ${(props) => props.isActive ? 'rgba(255, 29, 37, .2)' : 'transparent'};
+  background-color: ${(props) => props.isActive ? 'rgba(178, 178, 178, .2)' : 'transparent'};
   padding: ${props => props.theme.space[1]}px;
   font-family: ${props => props.theme.fonts.courierNew};
 
   &:hover {
-    background-color: rgba(255, 29, 37, .2);
+    background-color: rgba(178, 178, 178, .2);
+  }
+
+  &:focus {
+    outline: 1px solid black;
   }
 `;
 

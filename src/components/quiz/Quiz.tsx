@@ -80,7 +80,7 @@ const TenseHeader = styled(Flex)`
 const TenseLabel = styled.h2`
   width: calc(100% / 3);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: 1px;
 `;
 

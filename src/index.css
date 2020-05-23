@@ -52,7 +52,10 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fff6f3;
+	/* background-color: #fff6f3; */
+	background-color: #fcf9f4;
+	background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
 code {
