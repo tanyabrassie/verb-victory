@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar';
 import Quiz from './components/quiz/Quiz';
 import verbData from './data/data';
 import {Flex} from 'rebass';
+import NoSelectionsPrompt from './components/NoSelectionsPrompt';
 
 const Main = styled.main`
   display: flex;
@@ -44,6 +45,7 @@ const App: React.FC = () => {
         }
         <Main>
           <Header/>
+          {!activeVerb && !!selectedVerbs.length && <NoSelectionsPrompt/>}
           {!!selectedVerbs.length && activeVerb &&  <Quiz verb={verbData[activeVerb]}/> }
         </Main>
       </Flex>
