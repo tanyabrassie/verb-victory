@@ -23,7 +23,8 @@ const VerbModal = styled(Modal)`
 
 const Background = styled.div`
   background-color: ${props => props.theme.colors.lightRed};
-  opacity: .6;
+  background-color: '#d1d1d1b8';
+  opacity: .2;
   position: fixed;
   top: 0;
   bottom: 0;
