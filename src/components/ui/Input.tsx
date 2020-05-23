@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'rebass';
-import { useRef, useEffect, useState } from 'react';
+import {useState} from 'react';
 
 interface Props {
   type: string;
@@ -19,7 +19,7 @@ const PlainInput: React.FC<Props> = (props) => {
 
   const [showFaces, toggleFaces] = useState<boolean>(false); 
 
-  const onUserInput = (e: any) => {
+  const onUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.onChange(e);
     toggleFaces(true);
   };
@@ -42,13 +42,19 @@ const PlainInput: React.FC<Props> = (props) => {
 };
 
 const Input = styled(PlainInput)`
-  border: ${(props) => props.error ? '1px solid #ff3000' : '1px solid black'};
+  border: none;
+  border-bottom: ${(props) => props.error ? '1px solid #ff3000' : '1px solid rgba(0, 0, 0, .3)'};
   background-color: transparent;
   height: 28px;
   width: 100%;
   font-size: 15px;
+  font-family: ${props => props.theme.fonts.courierNew};
   font-weight: 600;
   padding: 0 ${props => props.theme.space[1]}px;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default Input;
