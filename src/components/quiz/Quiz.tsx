@@ -74,11 +74,14 @@ const TenseHeader = styled(Flex)`
   width: 100%;
   border-bottom: 1px solid ${props => props.theme.colors.black};
   padding-top: ${props => props.theme.space[10]}px;
-  padding-bottom: ${props => props.theme.space[2]}px;
+  padding-bottom: ${props => props.theme.space[3]}px;
 `;
 
 const TenseLabel = styled.h2`
   width: calc(100% / 3);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
 `;
 
 const Quiz: React.FC<Props> = ({verb}) => {
@@ -108,11 +111,20 @@ const Quiz: React.FC<Props> = ({verb}) => {
     },
   };
 
-  const [state, dispatch] = useReducer(reduce, changeset);
+  const perChangeset: PerChangeset = {
+    past: {
+      ...persons,
+    },
+    future: {
+      ...persons,
+    },
+  };
 
-  // initial state = changes
-  const handleImpChange = (e:  React.ChangeEvent<HTMLInputElement>, tense: Tense) => {
-    dispatch({
+  const [impState, iDispatch] = useReducer(reduce, changeset);
+  const [perState,  pDispatch] = useReducer(reduce, perChangeset);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>, tense: Tense, dispatcher: ({}) => void) => {
+    dispatcher({
       tense: tense,
       person: e.target.name,
       value: e.target.value,
@@ -136,7 +148,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
         <TenseLabel>Past</TenseLabel>
         <TenseLabel>Future</TenseLabel>
       </TenseHeader>
-      <FormContainer>
+      <FormContainer pb={'120px'}>
         <FormGroup width={1/3}>
           {(Object.keys(imperfectiveForms.present) as Array<keyof typeof imperfectiveForms.present>).map(key => {
             return(
@@ -145,9 +157,9 @@ const Quiz: React.FC<Props> = ({verb}) => {
                 <Input
                   type="text"
                   name={key}
-                  value={state.present[key]}
-                  onChange={(e) => handleImpChange(e, Tense.PRESENT)}
-                  error={hasError(state.present[key], imperfectiveForms.present[key])}
+                  value={impState.present[key]}
+                  onChange={(e) => handleChange(e, Tense.PRESENT, iDispatch)}
+                  error={hasError(impState.present[key], imperfectiveForms.present[key])}
                 />
               </InputContainer>
             );
@@ -162,8 +174,8 @@ const Quiz: React.FC<Props> = ({verb}) => {
                 <Input 
                   type="text"
                   name={key}
-                  value={state.past[key]}
-                  onChange={(e) => handleImpChange(e, Tense.PAST)}
+                  value={impState.past[key]}
+                  onChange={(e) => handleChange(e, Tense.PAST, iDispatch)}
                   error={false}
                 />
               </InputContainer>
@@ -179,8 +191,8 @@ const Quiz: React.FC<Props> = ({verb}) => {
                 <Input
                   type="text"
                   name={key}
-                  value={state.future[key]}
-                  onChange={(e) => handleImpChange(e, Tense.FUTURE)}
+                  value={impState.future[key]}
+                  onChange={(e) => handleChange(e, Tense.FUTURE, iDispatch)}
                   error={false}
                 />
               </InputContainer>
@@ -189,32 +201,52 @@ const Quiz: React.FC<Props> = ({verb}) => {
         </FormGroup>
       </FormContainer>
 
-      <Flex>
-        {verb.perfectiveSibling.infinitive} - {verb.definition}
+      <VerbHeader
+        aspect={'perfective'}
+        definition={verb.perfectiveSibling.definition}
+        infinitive={verb.perfectiveSibling.infinitive}
+      />
+
+      <TenseHeader>
+        <TenseLabel>Past</TenseLabel>
+        <TenseLabel>Future</TenseLabel>
+      </TenseHeader>
+
+      <FormContainer>
         <Box p={3}>
-          <div>Future</div>
-          {(Object.keys(perfectiveForms.future) as Array<keyof typeof perfectiveForms.future>).map(key => {
+          {(Object.keys(perfectiveForms.past) as Array<keyof typeof perfectiveForms.past>).map(key => {
             return (
-              <>
-                <div>{key}</div>
-                <div>{perfectiveForms.future[key]}</div>
-              </>
+              <InputContainer key={key + perfectiveForms.past[key]}>
+                <Label>{key}</Label>
+                <Input
+                  type="text"
+                  name={key}
+                  value={perState.past[key]}
+                  onChange={(e) => handleChange(e, Tense.PAST, pDispatch)}
+                  error={false}
+                />
+              </InputContainer>
             );
           })}
         </Box>
 
         <Box p={3}>
-          <div>Past</div>
-          {(Object.keys(perfectiveForms.past) as Array<keyof typeof perfectiveForms.past>).map(key => {
+          {(Object.keys(perfectiveForms.future) as Array<keyof typeof perfectiveForms.future>).map(key => {
             return (
-              <>
-                <div>{key}</div>
-                <div>{perfectiveForms.past[key]}</div>
-              </>
+              <InputContainer key={key + perfectiveForms.future[key]}>
+                <Label>{key}</Label>
+                <Input
+                  type="text"
+                  name={key}
+                  value={perState.future[key]}
+                  onChange={(e) => handleChange(e, Tense.FUTURE, pDispatch)}
+                  error={false}
+                />
+              </InputContainer>
             );
           })}
         </Box>
-      </Flex>
+      </FormContainer>
     </QuizContainer>
   );
 };
