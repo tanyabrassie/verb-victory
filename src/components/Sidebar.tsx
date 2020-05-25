@@ -2,24 +2,15 @@ import * as React from 'react';
 import styled from 'styled-components';
 import {Flex} from 'rebass';
 import {SelectedVerbs} from '../data/types';
+import { dramaticTextStyle } from './ui/typography';
 
 interface Props {
-  toggleSelectionModal: (value: boolean) => void;
+  toggleForm: (value: boolean) => void;
   selections: SelectedVerbs;
   setActiveVerb: (s: string) => void;
   verbData: any; //TODO
   activeVerb?: string;
 }
-
-const Container = styled.aside`
-  width: 180px;
-  position: sticky;
-  top: 0;
-  margin: ${props => props.theme.space[4]}px;
-  padding: ${props => props.theme.space[2]}px ${props => props.theme.space[4]}px;
-  height: 600px;
-  border-right: 12px solid ${props => props.theme.colors.brightRed};
-`;
 
 const SelectorButton = styled.button<{isActive: boolean}>`
   display: block;
@@ -28,7 +19,7 @@ const SelectorButton = styled.button<{isActive: boolean}>`
   cursor: pointer;
   font-size: 13px;
   margin: ${props => props.theme.space[2]}px 0;
-  background-color: ${(props) => props.isActive ? 'rgba(178, 178, 178, .2)' : 'transparent'};
+  background-color: ${(props) => props.isActive ? props.theme.colors.beige : 'transparent'};
   padding: ${props => props.theme.space[1]}px;
   font-family: ${props => props.theme.fonts.courierNew};
 
@@ -42,9 +33,7 @@ const SelectorButton = styled.button<{isActive: boolean}>`
 `;
 
 const Title = styled.strong`
-  text-transform: uppercase;
-  font-size: 15px;
-  font-weight: 800;
+  ${dramaticTextStyle};
   padding: ${props => props.theme.space[1]}px;
 `;
 
@@ -61,24 +50,31 @@ const CircleButton = styled.button`
   }
 `;
 
-const Sidebar: React.FC<Props> = ({selections, toggleSelectionModal, setActiveVerb, verbData, activeVerb}) => {
+
+const Sidebar: React.FC<Props> = ({selections, toggleForm, setActiveVerb, verbData, activeVerb}) => {
+
+  const selectVerb = (s: any) => {
+    setActiveVerb(s);
+    toggleForm(false);
+  };
+
   return(
-    <Container>
+    <>
       <Flex alignItems="center" justifyContent="space-between">
         <Title>Select Verb</Title>
-        <CircleButton onClick={() => toggleSelectionModal(true)}>✍︎</CircleButton>
+        <CircleButton onClick={() => toggleForm(true)}>✍︎</CircleButton>
       </Flex>
       {selections.map(s => {
         return(
           <SelectorButton 
-            onClick={() => setActiveVerb(s)} 
+            onClick={() => selectVerb(s)} 
             isActive={activeVerb === s}
             key={s}>
             {verbData[s].infinitive}, {verbData[s].perfectiveSibling.infinitive}
           </SelectorButton>
         );
       })}
-    </Container>
+    </>
   );
 };
 

@@ -20,7 +20,7 @@ const Aspect = styled.span`
 `;
 
 const Infinitive = styled.h1`
-  font-weight: 100;
+  font-weight: 600;
   font-size: 50px;
   font-family: ${props => props.theme.fonts.courierNew};
 `;  

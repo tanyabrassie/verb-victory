@@ -3,11 +3,31 @@ import Data from '../data/data';
 import {useState} from 'react';
 import {SelectedVerbs} from '../data/types';
 import styled from 'styled-components';
+import { dramaticTextStyle } from './ui/typography';
 
 interface Props {
   updateSelections: (s: SelectedVerbs) => void;
   selectedVerbs: SelectedVerbs;
 }
+
+const Title = styled.h1`
+  ${dramaticTextStyle};
+  text-align: center;
+`;
+
+const Checkbox = styled.div`
+  font-family: ${props => props.theme.fonts.courierNew};
+`;
+
+const Form = styled.form`
+  width: 100%;
+  margin-top: 50px;
+  padding: ${props => props.theme.space[4]}px;
+  border: 1px solid ${props => props.theme.colors.black};
+  min-height: 300px;
+  width: 60%;
+  margin: auto;
+`;
 
 const SelectionForm: React.FC<Props> = (props) => {
   const [changeset, updateChangeset] = useState<SelectedVerbs>(props.selectedVerbs);
@@ -25,20 +45,12 @@ const SelectionForm: React.FC<Props> = (props) => {
     props.updateSelections(changeset);
   };
 
-
-  const Title = styled.h1`
-    letter-spacing: 1px;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 20px;
-  `;
-
   return (
-    <form onSubmit={onSubmit} >
-      <Title>Select Your Verbs</Title>
+    <Form onSubmit={onSubmit} >
+      <Title>Select Verbs To Study</Title>
       {Object.keys(Data).map(key => {
         return (
-          <div key={key}>
+          <Checkbox key={key}>
             <label key={key}>
               {Data[key].infinitive}, {Data[key].perfectiveSibling.infinitive}
               <input 
@@ -49,11 +61,11 @@ const SelectionForm: React.FC<Props> = (props) => {
                 onChange={(e) => handleChange(e)}
               />
             </label>
-          </div>
+          </Checkbox>
         );
       })}
       <button disabled={!changeset.length} type="submit">Start Studying</button>
-    </form>
+    </Form>
   );
 };
 
