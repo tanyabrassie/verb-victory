@@ -5,6 +5,7 @@ import {useReducer} from 'react';
 import Input from '../ui/Input';
 import VerbHeader from './VerbHeader';
 import styled from 'styled-components';
+import {dramaticTextStyle} from '../ui/typography';
 
 interface Props {
   verb: Verb;
@@ -79,9 +80,7 @@ const TenseHeader = styled(Flex)`
 
 const TenseLabel = styled.h2`
   width: calc(100% / 3);
-  text-transform: uppercase;
-  font-weight: 800;
-  letter-spacing: 1px;
+  ${dramaticTextStyle};
 `;
 
 const Quiz: React.FC<Props> = ({verb}) => {
