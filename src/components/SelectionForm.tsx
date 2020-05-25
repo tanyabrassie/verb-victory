@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {SelectedVerbs} from '../data/types';
 import styled from 'styled-components';
 import { dramaticTextStyle } from './ui/typography';
+import {Flex} from 'rebass';
 
 interface Props {
   updateSelections: (s: SelectedVerbs) => void;
@@ -15,18 +16,26 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-const Checkbox = styled.div`
+const Checkbox = styled(Flex)`
   font-family: ${props => props.theme.fonts.courierNew};
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  padding: ${props => props.theme.space[1]}px;
 `;
 
 const Form = styled.form`
   width: 100%;
   margin-top: 50px;
-  padding: ${props => props.theme.space[4]}px;
+  padding: ${props => props.theme.space[6]}px;
   border: 1px solid ${props => props.theme.colors.black};
   min-height: 300px;
   width: 60%;
   margin: auto;
+`;
+
+const OptionBox = styled(Flex)`
+  margin-top: ${props => props.theme.space[4]}px;
+  flex-direction: column;
 `;
 
 const SelectionForm: React.FC<Props> = (props) => {
@@ -48,11 +57,13 @@ const SelectionForm: React.FC<Props> = (props) => {
   return (
     <Form onSubmit={onSubmit} >
       <Title>Select Verbs To Study</Title>
-      {Object.keys(Data).map(key => {
-        return (
-          <Checkbox key={key}>
-            <label key={key}>
-              {Data[key].infinitive}, {Data[key].perfectiveSibling.infinitive}
+      <OptionBox>
+        {Object.keys(Data).map(key => {
+          return (
+            <Checkbox key={key}>
+              <label key={key}>
+                {Data[key].infinitive}, {Data[key].perfectiveSibling.infinitive}
+              </label>
               <input 
                 type="checkbox"
                 value={key}
@@ -60,10 +71,10 @@ const SelectionForm: React.FC<Props> = (props) => {
                 name={Data[key].infinitive}
                 onChange={(e) => handleChange(e)}
               />
-            </label>
-          </Checkbox>
-        );
-      })}
+            </Checkbox>
+          );
+        })}
+      </OptionBox>
       <button disabled={!changeset.length} type="submit">Start Studying</button>
     </Form>
   );
