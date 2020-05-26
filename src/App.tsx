@@ -59,7 +59,8 @@ const App: React.FC = () => {
         <Main>
           <Header/>
           {hasVerbSelections && activeVerb && !showForm && <Quiz verb={verbData[activeVerb]}/> }
-          {showForm && <SelectionForm selectedVerbs={selectedVerbs} updateSelections={updateSelections} /> }
+          {showForm && 
+            <SelectionForm selectedVerbs={selectedVerbs} updateSelections={updateSelections} /> }
         </Main>
       </Flex>
     </ThemeProvider>

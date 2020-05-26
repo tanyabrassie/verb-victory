@@ -15,6 +15,12 @@ interface Props {
   id?: string;
 }
 
+const Face = styled.div`
+  width: 25px;
+  font-size: 20px;
+  margin-left: ${props =>  props.theme.space[1]}px;
+`;
+
 const PlainInput: React.FC<Props> = (props) => {
 
   const [showFaces, toggleFaces] = useState<boolean>(false); 
@@ -35,8 +41,10 @@ const PlainInput: React.FC<Props> = (props) => {
         placeholder={props.placeholder}
         className={props.className}
       />
-      {!props.error && showFaces && <span>😀</span>}
-      {props.error && showFaces && <span>🙁</span>}
+      <Face>
+        {!props.error && !!props.value.length && showFaces && <span>😀</span>}
+        {props.error && !!props.value.length && showFaces && <span>🙁</span>}
+      </Face>
     </Flex>
   );
 };

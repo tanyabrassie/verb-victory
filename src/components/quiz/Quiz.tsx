@@ -120,7 +120,7 @@ const Quiz: React.FC<Props> = ({verb}) => {
   };
 
   const [impState, iDispatch] = useReducer(reduce, changeset);
-  const [perState,  pDispatch] = useReducer(reduce, perChangeset);
+  const [perState, pDispatch] = useReducer(reduce, perChangeset);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, tense: Tense, dispatcher: ({}) => void) => {
     dispatcher({
